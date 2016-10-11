@@ -1,0 +1,41 @@
+first get the older version with the bug using
+wget http://web.cs.ucla.edu/classes/winter16/cs35L/assign/
+     coreutils-with-bug.tar.gz
+once saved to the home directory, unzip the file using
+tar xvfz coreutils-with-bug.tar.gz
+once this finishes, enter the new directory
+cd coreutils-with-bug
+./configure
+make
+at the end of the make command, it exits with Error 2
+using the bug check provided in the lab part outputs the same information that
+is shown in the lab
+download the patch using
+wget http://web.cs.ucla.edu/classes/winter16/cs35L/assign/coreutils.diff
+read the patch, and notice it patches files in lib and src
+copy the coreutils.diff into coreutils-with-bug's lib and src
+while in lib and src, apply the patch with
+patch -p1 < coreutils.diff
+skip over the patches that apply to the other directory you are not in
+patches are applied succesfully
+return to the coreutils-with-bug directory and rebuild using
+make
+this time there is no failures or exit errors
+the output is exactly the same as the first time
+the patch fixed the variable errors that were described after the first make
+for example, futimens became coreutils_futimens (this fixed the multiple types
+that existed for futimens previously)
+to reproduce the problem, I re-unzipped the tar.gz file and ran the resulting
+file to validate that the problem continued to persist.
+launching the debugger,with src/ls.c (in emacs)
+I see that the error is in the timespec.h file (binary overflow)
+there is use of ints, even when the variables could be much longer than 32bits
+copying the file timespec.h to fixedtimepsec.h and then fixing the code
+by changing the variable from int to signed long long int
+allows us to then make a diff file from the result
+emacs lab5.diff and then edited changelog with C-X 4 a
+noted that I changed the variable type
+running the commnds from "touch -d" to "TZ-UTC0" in my homedirectory recreates
+the problem in my directory.
+the seasnet has this problem because when the data is touched it changes to
+32bit, but the seasnet runs 64bit. it truncates the most significant digit

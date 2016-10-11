@@ -1,0 +1,25 @@
+2. git checkout v3.0 -b quote
+   the six modified folders from earlier are displayed with an M in front
+3. while in the diffutils directory
+   patch -p1 < quote-3.0-patch.txt
+   the 6 files from earlier were patched
+4.
+5. emacs quote-patch.txt (the original patch file)
+   use C-x 4 a to add the ChangeLog
+   I wrote a short description of the patch and the 6 modified files
+6. git add .
+   git commit -a -F ChangeLog
+7. git format-patch -1 --stdout > formatted-patch.txt
+   the option -1 is used to format only the commit
+   --stdout is used so the commit is printed in "mbox" format
+8. 
+9. make distdir outputs a ton of "checking ..."
+   emacs diffutils*/ChangeLog
+   the ChangeLog did correctly add my ChangeLog to the log (mine is newest)
+   however, I am still unsure of what actual content should have been
+   inserted into the ChangeLog (if the original commit was supposed to have
+   been copy pasted or something)
+10.since the directory doesn't appear to exist anymore (can't cd into it)
+   go to the savannah site and first clone it with
+   git clone git://git.savannah.gnu.org/emacs.git
+   it takes quite a while for this process to complete 

@@ -1,0 +1,29 @@
+1. mkdir gitroot
+   cd gitroot
+   git clone git://git.savannah.gnu.org/diffutils.git
+
+   It takes a bit to download, but is pulled fine
+2. cd diffutils
+   git log > git-log.txt
+
+   the new text file shows the commits the author and the date
+3. git tag > git-tags.txt
+
+   contains a list of versions
+4. Found the commit:
+   commit 62ca21c8c1a5aa3488589dcb191a4ef04ae9ed4f
+   git show 62ca21c8c1a5aa3488589dcb191a4ef04ae9ed4f > quote-patch.txt
+5. while in the diffutils directory
+   git checkout v3.0
+6. While still in the diffutils directory
+   patch -p1 < quote-patch.txt
+   there were three errors, and 3 files were skipped
+   y [Enter] three times
+7. git status
+   modified files include
+   NEWS README TODO doc/diagmeet.not ms/confi.bat ms/config.site po/en.po
+   src/analyze.c src/cmp.c src/context.c src/diff.h src/diff3.c src/dir.c
+   src/ifdef.c src/io.c src/sdiff.c src/side.c src/system.h src/util.c
+   tests/help-version
+   there are a number of untracked files
+8. 

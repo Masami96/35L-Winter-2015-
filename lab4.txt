@@ -1,0 +1,64 @@
+1. mkdir gitroot
+   cd gitroot
+   git clone git://git.savannah.gnu.org/diffutils.git
+
+   It takes a bit to download, but is pulled fine
+2. cd diffutils
+   git log > git-log.txt
+
+   the new text file shows the commits the author and the date
+3. git tag > git-tags.txt
+
+   contains a list of versions
+4. Found the commit:
+   commit 62ca21c8c1a5aa3488589dcb191a4ef04ae9ed4f
+   git show 62ca21c8c1a5aa3488589dcb191a4ef04ae9ed4f > quote-patch.txt
+5. while in the diffutils directory
+   git checkout v3.0
+6. While still in the diffutils directory
+   patch -p1 < quote-patch.txt
+   there were three errors, and 3 files were skipped
+   y [Enter] three times
+7. git status
+   modified files include
+   NEWS README TODO doc/diagmeet.note ms/config.bat ms/config.site po/en.po
+   src/analyze.c src/cmp.c src/context.c src/diff.h src/diff3.c src/dir.c
+   src/ifdef.c src/io.c src/sdiff.c src/side.c src/system.h src/util.c
+   tests/help-version
+   there are a number of untracked files
+8. Go to all the non .c files and revert them using
+   vc-revert (C-x v-u)
+   all the modified files only include .c files now
+9. go to the c files and perform
+   vc-diff (C-x v-=)
+   revert all the comment hunks using
+   C-u C-c C-a
+   apply changes to hunks with no comments using
+   C-c C-a
+   move to the next hunk using M-n
+   manually go through the .c files, and revert all of the changes that affect
+   only the comments. keep all changes to actual code
+   git status returns the following files to still be modified
+   src/cmp.c src/diff.c src/diff3.c src/dir.c src/sdiff.c src/util.c
+10.emacs into src/diff.c.rej and apply those unapplied patches manually
+   into src/diff.c
+   do the same with src/diff3.c.rej and src/diff3.c
+11.using the rm [filename] command, I removed all untracked files leaving only
+   6 files
+12.git diff > quote-3.0-patch.txt
+13.after running ./bootstrap bash runs some process for about 3-5 minutes
+   running ./configure performs a lot of "checking for" and "checking whether"
+   make runs through a bunch of files
+   make check runs but has some recipes fail
+   cd src and then run
+   ./diff . -
+   ./diff --help
+   and both output lines that replace the ` with ' appropriately
+14.I copied my diffutils twice using
+   cp -rf diffutils [newDirectory]
+   then I ran (while in gitroot directory)
+   diffutils/src/diff -pru diffutils-3.0 diffutils-3.0-patch
+   > quote-3.0-test.txt 
+15.The changes are indeed innocuous (the ` characters were changed to ')
+   Changes were also only made in the code, no comments
+   

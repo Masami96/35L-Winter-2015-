@@ -1,0 +1,23 @@
+First I made a file test.txt of 51200 bytes
+time cat test.txt | ./sfrobu "qwertyuiop" "poiuytrewq"
+real 0m0.003s
+user 0m0.000s
+sys  0m0.003s
+
+time cat test.txt | ./sfrob "qwertyuiop" "poiuytrewq"
+real 0m0.002s
+user 0m0.001s
+sys  0m0.002s
+
+time cat test.txt | ./sfrobs
+real 0m0.008s
+user 0m0.003s
+sys  0m0.006s
+
+According to this, the sfrobs is going to be much slower overall than both the
+sfrobu and sfrob funcitons.
+Now remake test.txt to a file of much smaller size
+The 3 all run fairly close to one another (very little deviation) which is
+expected due to the small size of the file being passed in
+
+The number of comparisons should be O(nlogn)?

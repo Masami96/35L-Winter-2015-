@@ -1,0 +1,54 @@
+First, generate the 10,000,000 random doubles into test.txt using
+od -An -N80000000 -tf /dev/urandom > test.txt
+Note: must use 8*10,000,000 because every double uses 8 bytes
+next, remove any whitespace characters using tr
+tr -s ' ' '\n' <test.txt> doubles.txt
+Upon checking the file itself, it starts with 2 newline characters and then has
+doubles every line after that. Trying to manually remove these lines causes my
+file to be unable to save with the error
+Write error: disk quota exceeded
+Upon research, it seems my account or something with the server is restricting
+me from saving, so just keep the problems
+
+First, I had to check the runtime of the basic sort function on the data using
+time -p sort -g <doubles.txt> /dev/null
+and this outputs:
+real 37.82
+user 194.49
+sys  0.63
+
+Now it is time to check the speed of sort using various levels of
+multithreading:
+
+1 thread
+time -p sort -g --parallel=1 <doubles.txt> /dev/null
+Output:
+real 176.91
+user 176.64
+sys  0.27
+
+2 threads
+time -p	sort -g	--parallel=2 <doubles.txt> /dev/null
+Output:
+real 95.74
+user 183.01
+sys  0.34
+
+4 threads
+time -p	sort -g	--parallel=4 <doubles.txt> /dev/null
+Output:
+real 57.94
+user 195.90
+sys  0.81
+
+8 threads
+time -p	sort -g	--parallel=8 <doubles.txt> /dev/null
+Output:
+real 41.23
+user 230.24
+sys  0.54
+
+As the amount of threads increased, the amount it took to run the time command
+decreased (on my laptop, it went from multiple minutes to below one)
+As the threads increase, the real time is decreased with user time increased.
+System time seems to have increased, but not significantly 

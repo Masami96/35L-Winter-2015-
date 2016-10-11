@@ -1,0 +1,3 @@
+#! /bin/bash
+
+cat | tr  "qwertyuiop" "poiuytrewq" | sort | tr "poiuytrewq" "qwertyuiop"

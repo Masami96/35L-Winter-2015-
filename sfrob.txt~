@@ -1,0 +1,5 @@
+time cat test.txt | ./sfrobu "qwertyuiop" "poiuytrewq"
+
+time cat test.txt | ./sfrob "qwertyuiop" "poiuytrewq"
+
+time cat test.txt | ./sfrobs

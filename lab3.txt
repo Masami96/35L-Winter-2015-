@@ -1,0 +1,32 @@
+1. using wget returns no problems
+2. use tar -xzvf coreutils-7.6.tar.gz to unzip the file
+   make a new directory, coreutilsInstall, to hold the isntalled file
+   ./configure --prefix /u/cs/ugrad/bruce/coreutilsInstall
+   this sets the install to the appropriate directory
+   cd into coreutils-7.6 and use make to compile the coreutils
+   make install to actually install the coreutils
+   check locale to make sure it is set to en_US.UTF-8
+3. to run the Coreutils 7.6
+   cd ~/coreutilsInstall
+   cd bin
+   ./ls -l
+   This is necessary because you want to run this command, not the default
+4. Go to Brady's patch and copy from "@@ -32,6 ..." to "...1.6.2.5"
+   create a new file with vim patch_file.diff
+   (emacs created many issues with copy and paste)
+   paste the patch text into patch_file.diff
+   double check only the "-" and "+" are all the way left
+   save the file
+   patch the file with "patch -p1 < patch_file.diff"
+   Hunks #1 and #2 succeeded
+5. using make causes two commands to run
+   "make all-recursive"
+   recursive checks all files to see if they need to be compiled
+   make actually compiles the files
+   then, make install to actually install/update coreutilsInstall
+6. going into /coreutilsInstall/bin and running ./ls -l
+   returns the appropriate time
+   now, use touch to make a file "accessed" over a year ago (I chose cat"
+   -rwxr-xr-x 1 bruce csugrad 200666 Jan 21 12:25 cat
+   using touch -t 0903130911 cat modifies this to
+   -rwxr-xr-x 1 bruce csugrad 200666 Mar 13  2008 cat

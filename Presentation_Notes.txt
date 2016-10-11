@@ -1,0 +1,44 @@
+Arvind - This browser upgrade could block users in developing nations from most of the web
+tldr; hardware cannot keep up with software
+-Hashing algorithm SHA-1 is being removed and replaced with SHA-2
+-(Hashing algorithm) Takes msg as input, and cryptographs, and stores the input as a hash
+-usually cotains an "avalanche effect" where one difference in the input can totally change the resulting hash
+-98.7% of websites use SHA1 still. Internet moves on very slowly
+-new algorithms need to be created to stay up to date with the improving power of computers
+-developing countries sometimes have a decent chunk of the population that cant support SHA2
+-as newer algorithms are adopted, older technology is no longer supported
+-hashing algorithms and cracking algorithms (cat and mouse game)
+
+Yi Zhang - Facial recognition software
+-like on facebook, facial recognition software is fairly accurate, but limited (need proper lighting, angles, etc.)
+-applications include:
+	medical use (detect anxiety, depression, autism, etc.)
+	evaluate public speaking
+	dating apps
+	security (detect terrorism and criminals)
+-concerns include:
+	privacy 
+	surveillance of society
+thermal cameras would get rid of issues like having hats sunglasses etc. but would require a large data base
+
+Yulin Zhang - Driverless cars are colliding with the creepy trolley problem
+-Tesla and Google have been making advancements in driverless cars
+-ethics of driverless cars
+	-do you let the car decide to kill 1 person rather than 5?
+	-should you sacrifice the driver in order to save a greater number of people?
+	
+Low Level Virtual Machine (name of project for compiler)
+
+GOTPass (Secure alternative to Regular Passwords)
+-various ways to crack pw's 
+-creating a GOTPass
+	-create username
+	-"Draw"a pic from a 4x4 grid
+	-select an image from a group of 4
+-more secure, but takes over 2min to create and around 24.5sec to login
+
+Brain Mapping
+
+MarioAI (social interactions for AI)
+-creates a matrix of pixels and trasnforms that to a button
+-has the different mario characters interact and let each other know the results of their actions

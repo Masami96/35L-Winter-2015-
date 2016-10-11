@@ -1,0 +1,7 @@
+the top window/windows of my screenshot displays the merges
+the first window is a description of what was done
+the second window is the author
+the third window is the date/time
+once a merge is selected two additional windows display information below
+the left window displays the ChangeLog
+the right window displays comments

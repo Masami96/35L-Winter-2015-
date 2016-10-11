@@ -1,0 +1,76 @@
+To start, first make the file words.txt with its contents being the output of:
+sort < /usr/share/dict/words > words.txt
+Pull the html from the website with 
+wget http://web.cs.ucla.edu/classes/winter16/cs35L/assign/assign2.html
+This stores the html file in assign2.html, copied to a text file with
+cp assign2.html assign2.txt
+
+Outputs of commands:
+tr -c 'A-Za-z' '[\n*]' < assign2.txt
+Words with only letters or newlines are printed
+tr -cs 'A-Za-z' '[\n*] < assign2.txt
+For all words/newlines that appear in a row, they are condensed to one.
+caused by adding the "tr -s"
+tr -cs 'A-Za-z' '[\n*] < assign2.txt | sort 
+The words are all printed in order (alphabetically) one per line
+tr -cs 'A-Za-z' '[\n*] < assign2.txt | sort -u 
+Similar to the above, but eliminate all duplicates
+tr -cs 'A-Za-z' '[\n*] < assign2.txt | sort -u | comm - words.txt
+Three columns are made, the first with all unique words from asign2.txt
+The second with all unique words from words.txt
+The third is all words present in both
+tr -cs 'A-Za-z' '[\n*]' < assign2.txt | sort -u | comm -23 - words.txt
+Displays only the first column from the previous command (unique words)
+
+(I used the following to get a general sense of how the buildwords should work)
+Acquire the htm from "English to Hawaiian" using
+wget http://mauimapp.com/moolelo/hwnwdseng.htm
+which saves hwnwdseng.htm, which I then saved/copied to hi.txt using
+cp hwnwdseng.htm hi.txt
+First, acquire all words of interest and insert them into hi2.txt using
+grep "<td>.*</td>" /u/cs/ugrad/bruce/hi.txt > hi2.txt
+eliminate all of the non-alpha characters and store this with
+tr -d "</td>" < hi2.txt > hi3.txt
+delete instances of "small" by running 
+sed 's/small//' < hi3.txt > hi4.txt
+sed 's/small//' < hi4.txt > hi5.txt
+now delete instances of "(Plural)" and "(Singular)"
+sed 's/(Plural)//' < hi5.txt > hi6.txt
+sed 's/(Singular)//' < hi6.txt > hi7.txt
+remove all of the indentations (made with spaces) using
+tr -d ' ' < hi7.txt > HI.txt
+next remove the blank lines 
+sed '/^$/d' HI.txt > onlyWords.txt
+Remove all english words by removing every other line (1,3,5,7,etc.)
+sed '1~2d' onlyWords.txt > hwords.txt 
+Now simply sort the contents of hwords.txt
+cp hwords.txt h.txt
+rm hwords.txt
+sort -u h.txt > hwords.txt
+Using a similar process, eliminate all upper case letters from the list
+cp hwords.txt a.txt
+rm hwords.txt
+tr '[:upper:]' '[:lower:]' < a.txt > hwords.txt
+
+
+Building builwords.sh
+first find all words of interest (grep)
+delete the html tags (sed <[^>]*>)
+delete the words in parenthesis (instead of manually deleting the two) (sed)
+delete the spaces, returns (tr -d ' /r/t')
+delete the blank lines (sed)
+remove every other line (sed)
+convert the apostrophes to ASCII (sed 's/`/'"'"'/g)
+convert lowercase to uppercase (tr)
+remove all the non-hawaiian character words
+(sed '/[^p^k^m^n^w^l^h^a^e^i^o^u^'\'']/d' |)
+finally, sort and remove doubles (sort -u)
+
+When checking assign2.html (the assignment webpage) using the command
+tr -cs 'A-Za-z' '[\n*]' < assign2.html | sort -u | comm -23 - hwords.txt
+the "misspelled" english are common words like "accent" "carriage" "this"
+When checking hwords.txt (the Hawaiian dictionary) using the command
+tr -cs 'A-Za-z' '[\n*]' < hwords.txt | sort -u | comm -23 - hwords.txt
+the "misspelled" words are in a small list and include "a" "ae" "alua"
+
+

@@ -1,0 +1,46 @@
+First, boot up Ubuntu from my usb drive (I have yet to install it) and launch
+the terminal. Also works for the cd given by the TA.
+
+Install both the server and client (I had client already installed) so run
+sudo apt-get install openssh-server
+
+Took turns being client/server
+
+Server:
+generate the keys (both pub and priv)
+ssh-keygen
+(put in the default /home/ubuntu/.ssh and ignore the passphrase)
+generate an account for the client on my server
+sudo useradd -d /home/<homedirectoryname> -m <username>
+sudo passwd <username>
+(I filled in the blanks with generic usernames and a simple pw)
+create a ssh directory in the home directory
+sudo mkdir .ssh
+modify the permissions for the new ssh directory
+sudo chown -R <username> .ssh
+sudo schmod 700 .ssh
+(only the user can read, write, and exec)
+get rid of the need for a password:
+emacs /etc/ssh/sshd_config
+(change Password Authetntication to "No")
+The client can now connect! IP addresses match once ssh'd in using
+ifconfig
+
+Client:
+generate the keys (pub and priv)
+ssh-keygen
+ignore the passphrase
+copy the public key to server from ~/.ssh/authorized_keys
+(partner had to make me a username and I got his ip by having him use ifconfig)
+ssh-copy-id -i (GivenUserName)@(Server'sIPAddress)
+asked if wanted to connect (they had password disabled)
+add private key to authentication agent
+ssh-add
+now ssh into the server using either of the below
+(depending on what you want to accomplish):
+ssh UserName@ServerIP
+ssh -X UserName@ServerIP
+test the connection using
+xterm
+firefox
+ifconfig (this provides my partner's IP)

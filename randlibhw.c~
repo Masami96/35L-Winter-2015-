@@ -1,0 +1,24 @@
+//this code deals with the random number generator (everything rand64)
+#include "randlib.h"
+#include <immintrin.h>
+
+void
+hardware_rand64_init (void)
+{
+}
+
+//the randlib.h file has this listed as an extern, so I changed it from static
+extern unsigned long long
+hardware_rand64 (void)
+{
+  unsigned long long int x;
+  while (! _rdrand64_step(&x))
+    continue;
+  return x;
+}
+
+void
+hardware_rand64_fini (void)
+{
+}
+

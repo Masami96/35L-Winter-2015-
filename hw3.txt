@@ -1,0 +1,36 @@
+Q1. case_long_iso_time_style: was removed since
+    case long_iso_time_style: was already present
+    removing this line is not necessary, it only cleans up the code
+    the switch statement already catches the case long... so that line
+    was just not being used ever
+
+Q2. Countries that do not use the MM/DD/YYYY format may be confused and be
+    unable to interpret the information
+    If an application relies on the numerical format of ls -l output, then
+    that application may no longer work as expected
+
+Q3. It outputs the following
+
+    Traceback (most recent call last):
+    File "./randline.py", line 70, in <module>
+    	 main()
+    File "./randlin.py", line 64, in main
+    	 sys.stdout.write(generator.chooseline())
+    File "./randline.py", line 34, in chooseline
+    	 return random.choice(self.lines)
+    File "/usr/lib64/python2.7/random/py", line 274, in choice
+    	 return seq[int(self.random() * len(seq))]
+# raises IndexError if seq is empty
+IndexError: list index out of range
+
+There is no length to the list at all, which is why the index is out of range
+
+Q4. using the command: python3 ./randline.py outputs:
+
+    File "./randline.py", line 65
+    	 except IOError as (errno, strerror):
+	 		   ^
+SyntaxError: invalid syntax
+
+This error occurs because python3 uses different syntax than python 2
+

@@ -1,0 +1,15 @@
+1. Yes, our network is still secure because the data is encrypted. The bytes
+they read would be meaningless.
+(1) If they keylogged us (recorded keystrokes) the data would still be safe.
+They would only receive our public key, unless we actually typed in the data
+itself (then obviously they would get the data).
+(2) With the physical USB they would receive everything, including our private
+key. Thus, they could decrypt all of the information between any client and the
+server. While this is fairly safe to do (boot from the USB), it makes the USB
+far more valuable, meaning we should not allow people outside the team even
+have access to where our USB is kept.
+
+2. gpg --verify checks for the integrity of the sent document. Unlike a
+certificate, an attacker could use a public key to sign in as someone else.
+We would need a certificate (or something like it). A third party program can
+keep track of who uses what public key. 
